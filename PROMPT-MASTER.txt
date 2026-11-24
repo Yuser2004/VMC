@@ -1,0 +1,25 @@
+[PROMPT MASTER: SISTEMA DE GESTIÓN Y ASIGNACIONES VMC]1. Visión General:Aplicación Web estática (0$costo, 0$ servidor, 0% riesgo de borrado por inactividad) para gestionar y generar la hoja de asignaciones de la reunión Vida y Ministerio Cristianos.2. Stack Técnico Definido:Backend / DB: Supabase (PostgreSQL para CRUD de publicadores, historial de asignaciones y configuraciones multi-congregación).JSON Repository: GitHub Repository público (andes-reuniones-json) donde un script local .py procesa los .epub y actualiza los archivos .json mediante git push.Frontend / Hosting: HTML5 + CSS3 (Variables dinamizadas, @media print) + JS Plain en GitHub Pages. SIN PHP.3. Reglas de Diseño Obligatorias:Colores UI: Azules oscuros (#0f172a, #1e293b) en Sidebar e Interfaz; Blanco descansado (#fcfcfd, #f8fafc) en hojas y documentos.Impresión Imprescindible: La vista editable debe permitir ajustar fuentes y márgenes dinámicamente mediante controles deslizantes (Variables CSS) que se conserven al imprimir (@media print).Multi-Congregación: Toda la arquitectura de Supabase y el Header debe estar preparada para seleccionar distintas congregaciones mediante congregacion_id.
+
+1. Publicadores y administrador
+
+Ya funcionan con Supabase.
+
+
+2. Importador EPUB en JavaScript — empezamos aquí
+
+Seleccionar EPUB, leerlo, identificar las semanas y mostrar una vista previa.
+
+
+3. Guardar programas en Supabase
+
+Revisar y ajustar las cuatro tablas propuestas según los datos reales.
+
+
+4. Formulario de asignaciones
+
+Elegir publicadores para las partes de cada semana.
+
+
+5. Integrar el editor S-140
+
+Generar el formato imprimible sin alterar su diseño actual.

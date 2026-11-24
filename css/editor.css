@@ -1,0 +1,773 @@
+/* ==========================================================================
+   EDITOR VMC - PLANTILLA S-140
+   Diseño de pantalla, hoja carta, filas adaptables e impresión
+   ========================================================================== */
+
+:root {
+    --sheet-font-size: 10px;
+    --sheet-margin: 10mm;
+    --meeting-gap: 12px;
+    --cong-font-size: 14px;
+    --header-padding-bottom: 4px;
+    --section-title-size: 9.5px;
+    --row-padding-y: 2px;
+}
+
+/* ==========================================================================
+   1. LAYOUT DEL EDITOR
+   ========================================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.editor-layout {
+    display: flex;
+    height: 100vh;
+    background-color: #0f172a;
+    overflow: hidden;
+}
+
+.control-panel {
+    width: 320px;
+    min-width: 320px;
+    background-color: #1e293b;
+    color: #f8fafc;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    overflow-y: auto;
+    border-right: 1px solid #334155;
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #334155;
+    padding-bottom: 0.75rem;
+    gap: 8px;
+}
+
+.panel-header h2 {
+    font-size: 1rem;
+}
+
+.accordion-section {
+    background: #0f172a;
+    padding: 0.75rem;
+    border-radius: 6px;
+    border: 1px solid #334155;
+}
+
+.accordion-section h3 {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    color: #60a5fa;
+    margin-bottom: 0.5rem;
+}
+
+.control-group {
+    margin-bottom: 0.65rem;
+}
+
+.control-group:last-child {
+    margin-bottom: 0;
+}
+
+.control-group label {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin-bottom: 0.25rem;
+}
+
+.control-group input[type="range"] {
+    width: 100%;
+    cursor: pointer;
+}
+
+.panel-footer {
+    margin-top: auto;
+}
+
+.preview-workspace {
+    flex: 1;
+    min-width: 0;
+    background-color: #cbd5e1;
+    padding: 1.5rem;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+}
+
+/* ==========================================================================
+   2. HOJA OFICIAL - TAMAÑO CARTA
+   ========================================================================== */
+
+.printable-sheet {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+    width: 215.9mm;
+    min-height: 279.4mm;
+    padding: var(--sheet-margin);
+    font-size: var(--sheet-font-size);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 0 0 auto;
+}
+
+/* Encabezado principal */
+
+.sheet-header {
+    border-bottom: 3px double #000000;
+    padding-bottom: var(--header-padding-bottom);
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.editable-congregation {
+    font-size: var(--cong-font-size);
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #000000;
+}
+
+.sheet-subtitle {
+    font-size: 1.15em;
+    font-weight: 700;
+    color: #000000;
+    text-align: right;
+}
+
+/* Bloques de reunión */
+
+.meeting-block {
+    margin-bottom: var(--meeting-gap);
+}
+
+.meeting-block:last-of-type {
+    margin-bottom: 0;
+}
+
+.meta-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    padding-bottom: 3px;
+    margin-bottom: 2px;
+    font-size: 0.98em;
+    font-weight: 700;
+}
+
+.meta-left {
+    min-width: 0;
+    flex: 1;
+}
+
+.meta-right {
+    text-align: left;
+    flex: 0 0 auto;
+    min-width: 175px;
+}
+
+.meta-role-line {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 4px;
+    white-space: nowrap;
+    line-height: 1.3;
+}
+
+.role-label {
+    display: inline;
+    flex: 0 0 auto;
+    font-size: 0.85em;
+    color: #4b5563;
+    font-weight: 600;
+    margin-right: 0;
+    white-space: nowrap;
+}
+
+.assigned-person {
+    display: inline;
+    min-width: 0;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   3. BARRAS DE SECCIÓN
+   ========================================================================== */
+
+
+.section-container {
+    margin-top: 4px;
+}
+
+.section-title-bar {
+    width: 50%;
+    max-width: 100%;
+    padding: 2px 6px;
+    font-size: var(--section-title-size);
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.3px;
+    margin-bottom: 2px;
+    box-sizing: border-box;
+}
+
+.section-tesoros .section-title-bar {
+    background-color: #4b5563;
+}
+
+.section-maestros .section-title-bar {
+    background-color: #b8860b;
+}
+
+.section-vida .section-title-bar {
+    background-color: #7b1113;
+}
+
+/* ==========================================================================
+   4. FILAS DEL PROGRAMA
+   Columnas: hora | título | asignación
+   ========================================================================== */
+
+.program-row {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) 49%;
+    align-items: start;
+    column-gap: 5px;
+    padding: var(--row-padding-y) 2px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.time-col {
+    min-width: 0;
+    font-size: 0.9em;
+    color: #4b5563;
+    font-weight: 600;
+    white-space: nowrap;
+    line-height: 1.25;
+}
+
+/* El texto del punto salta solamente entre palabras.
+   No divide palabras ni guiones automáticamente. */
+
+.part-col {
+    display: block !important;
+    min-width: 0;
+    width: 94%;
+    white-space: normal !important;
+    word-break: normal !important;
+    overflow-wrap: normal !important;
+    hyphens: none !important;
+    line-height: 1.25;
+}
+
+/* Columna de asignaciones: etiqueta y nombre en la misma línea */
+
+.assignee-col {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 2px;
+    min-width: 0;
+    width: 100%;
+    text-align: left;
+    font-weight: 600;
+    line-height: 1.25;
+    white-space: normal;
+}
+
+.assignee-col > .role-label {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.assignee-col > .assigned-person {
+    display: inline;
+    min-width: 0;
+    flex: 0 1 auto;
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+/* Los pares conservan los dos nombres en la misma fila lógica.
+   La barra / tiene una columna fija y no se desplaza entre filas. */
+
+.assigned-pair {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 12px minmax(0, 1fr);
+    align-items: start;
+    gap: 2px;
+    width: 100%;
+    min-width: 0;
+    text-align: left;
+}
+
+.assigned-name {
+    display: inline;
+    min-width: 0;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: none;
+}
+
+.pair-separator {
+    display: block;
+    width: 12px;
+    min-width: 12px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Puntos de color de Vida Cristiana */
+
+.section-vida .part-col:first-letter {
+    color: #7b1113;
+}
+
+/* Footer */
+
+.sheet-footer-code {
+    font-size: 8px;
+    color: #555555;
+    margin-top: 2px;
+}
+
+/* ==========================================================================
+   5. EDICIÓN TIPO WORD Y BARRA FLOTANTE
+   ========================================================================== */
+
+[contenteditable="true"] {
+    cursor: text;
+    transition: outline 0.12s ease;
+}
+
+[contenteditable="true"]:hover {
+    outline: 1px dashed #60a5fa;
+    outline-offset: 1px;
+}
+
+[contenteditable="true"]:focus {
+    outline: 2px solid #2563eb;
+    outline-offset: 1px;
+    background-color: #f8fafc;
+}
+
+.word-floating-toolbar {
+    position: absolute;
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 0.35rem 0.65rem;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+    border: 1px solid #334155;
+}
+
+.toolbar-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+}
+
+.word-floating-toolbar button {
+    background: #1e293b;
+    color: #f8fafc;
+    border: 1px solid #475569;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.word-floating-toolbar button:hover {
+    background: #2563eb;
+}
+
+#current-size-label {
+    min-width: 45px;
+    text-align: center;
+    color: #60a5fa;
+    font-weight: 600;
+}
+
+/* Botones de utilidad */
+
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: #2563eb;
+    color: white;
+}
+
+.btn-success {
+    background: #16a34a;
+    color: white;
+}
+
+.btn-secondary {
+    background: #475569;
+    color: white;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.btn-block {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+/* ==========================================================================
+   6. REGLAS DE IMPRESIÓN
+   ========================================================================== */
+
+@media print {
+    @page {
+        size: letter;
+        margin: 0;
+    }
+
+    *,
+    *::before,
+    *::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    html,
+    body {
+        width: 215.9mm;
+        margin: 0;
+        padding: 0;
+        background: #ffffff;
+    }
+
+    .editor-layout {
+        display: block;
+        width: 215.9mm;
+        height: auto;
+        overflow: visible;
+        background: #ffffff;
+    }
+
+    .control-panel,
+    .no-print,
+    .word-floating-toolbar {
+        display: none !important;
+    }
+
+    .preview-workspace {
+        display: block;
+        width: 215.9mm;
+        margin: 0;
+        padding: 0;
+        overflow: visible;
+        background: #ffffff;
+    }
+
+    .printable-sheet {
+        box-shadow: none;
+        width: 215.9mm;
+        min-height: 279.4mm;
+        height: 279.4mm;
+        margin: 0;
+        padding: var(--sheet-margin);
+        border: none;
+        page-break-after: always;
+        break-after: page;
+    }
+
+    .program-row {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .part-col,
+    .assignee-col,
+    .assigned-pair,
+    .assigned-name {
+        overflow: visible;
+    }
+
+    [contenteditable="true"] {
+        outline: none !important;
+        background-color: transparent !important;
+    }
+}
+
+
+/* ==========================================================================
+   7. DETALLES EDITORIALES: LÍNEAS FINAS Y ALINEACIÓN
+   ========================================================================== */
+
+/* Color muy tenue según el bloque correspondiente */
+.section-tesoros { --row-accent: rgba(75, 85, 99, 0.28); --row-separator: #7d8590; }
+.section-maestros { --row-accent: rgba(184, 134, 11, 0.26); --row-separator: #ad8733; }
+.section-vida { --row-accent: rgba(123, 17, 19, 0.24); --row-separator: #9d5556; }
+
+/* Fuera de las secciones: gris discreto */
+.meeting-block > .program-row {
+    --row-accent: rgba(100, 116, 139, 0.24);
+    --row-separator: #64748b;
+}
+
+/* La línea comienza después del texto, no alrededor de todo el contenedor. */
+.part-wrap {
+    display: flex;
+    align-items: baseline;
+    min-width: 0;
+    width: 100%;
+}
+
+.part-wrap > .part-col {
+    display: inline !important;
+    flex: 0 1 auto;
+    width: auto !important;
+    max-width: 94%;
+    min-width: 0;
+}
+
+.row-leader,
+.assignee-leader,
+.role-leader {
+    display: block;
+    flex: 1 1 0;
+    min-width: 3px;
+    height: 0;
+    align-self: baseline;
+    border-bottom: 0.6px solid var(--row-accent, rgba(100, 116, 139, .24));
+    margin: 0 0 2px 5px;
+    pointer-events: none;
+}
+
+/* Etiqueta a la izquierda, nombre a la derecha, ambos en una sola línea. */
+.assignee-student {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: nowrap;
+    min-width: 0;
+    gap: 3px;
+}
+
+.assignee-student > .role-label {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+.assignee-student > .role-leader {
+    flex: 1 1 auto;
+    min-width: 8px;
+    margin: 0 5px 2px;
+}
+
+.assignee-student > .assigned-person {
+    flex: 0 1 auto;
+    white-space: nowrap;
+    text-align: right;
+    min-width: 0;
+}
+
+/* Los pares conservan exactamente la columna central fija.
+   La flechita tiene el color sutil de cada sección. */
+.pair-separator {
+    width: 12px;
+    min-width: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 0.95;
+    color: var(--row-separator, #64748b);
+    text-align: center;
+}
+
+/* Solo el último nombre del par lleva una línea hacia el extremo derecho. */
+.pair-last {
+    display: flex;
+    min-width: 0;
+    width: 100%;
+    align-items: baseline;
+}
+
+.pair-last > .assigned-name {
+    flex: 0 1 auto;
+    min-width: 0;
+}
+
+.pair-last > .assignee-leader {
+    margin-left: 3px;
+    min-width: 0;
+}
+
+/* Separador elegante entre reuniones, sin caja alrededor. */
+.meeting-divider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    margin: 0;
+    height: 9px;
+    flex: 0 0 9px;
+}
+
+.meeting-divider::before,
+.meeting-divider::after {
+    content: "";
+    height: 0;
+    border-bottom: 0.7px solid rgba(123, 17, 19, .26);
+    flex: 1 1 auto;
+}
+
+.meeting-divider > span {
+    display: block;
+    width: 5px;
+    height: 5px;
+    border: 1px solid rgba(123, 17, 19, .5);
+    transform: rotate(45deg);
+    flex: 0 0 auto;
+}
+
+@media print {
+    .meeting-divider { break-inside: avoid; page-break-inside: avoid; }
+    .row-leader, .assignee-leader, .role-leader,
+    .meeting-divider::before, .meeting-divider::after {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}
+
+/* Integración: controles nuevos y variables exclusivamente dentro de la hoja. */
+.control-panel select,.control-panel input[type="time"]{width:100%;padding:8px;border:1px solid #475569;border-radius:5px;background:#0f172a;color:#fff}
+#editor-status.error{color:#fca5a5!important}
+#editor-status.ok{color:#86efac!important}
+.printable-sheet{--sheet-font-size:10px;--sheet-margin:10mm;--meeting-gap:12px;--cong-font-size:14px;--header-padding-bottom:4px;--section-title-size:9.5px;--row-padding-y:2px}
+/* Evita cortar la primera palabra si el título de sección se extiende. */
+.section-title-bar{overflow-wrap:normal;word-break:normal;hyphens:none}
+.meeting-block:empty{min-height:1px}
+@media print{.printable-sheet:last-child{break-after:auto;page-break-after:auto}}
+
+
+/* ============================================================================
+   PARES S-140: DOS MITADES FIJAS EN CARTA, SIN ESPACIOS AUTOMÁTICOS
+   Mantiene el diseño original; solo corrige el posicionamiento de reuniones.
+   ============================================================================ */
+.printable-sheet {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+    justify-content: initial;
+    position: relative;
+    height: 279.4mm;
+    min-height: 279.4mm;
+    max-height: 279.4mm;
+    overflow: visible;
+}
+.sheet-half {
+    min-height: 0;
+    min-width: 0;
+    align-self: stretch;
+    position: relative;
+}
+.sheet-top-half {
+    grid-row: 1;
+}
+.sheet-bottom-half {
+    grid-row: 2;
+    padding-top: var(--meeting-gap);
+}
+/* Mantener el encabezado cerca de su reunión: no repartir el espacio vertical. */
+.sheet-top-half > .sheet-header {
+    margin-bottom: 8px;
+}
+.sheet-half > .meeting-block {
+    margin: 0;
+}
+/* El separador cruza exactamente la mitad física de la hoja carta. */
+.printable-sheet > .meeting-divider {
+    position: absolute;
+    top: 50%;
+    left: var(--sheet-margin);
+    right: var(--sheet-margin);
+    width: auto;
+    margin: 0;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+.printable-sheet > .sheet-footer-code {
+    position: absolute;
+    left: var(--sheet-margin);
+    bottom: calc(var(--sheet-margin) - 2mm);
+    margin: 0;
+}
+.editor-pair-summary {
+    background: #13243a;
+    border: 1px solid #475569;
+    border-radius: 6px;
+    padding: 9px 10px;
+    font-size: 12px;
+    line-height: 1.6;
+}
+.editor-pair-summary strong { color: #bfdbfe; }
+.editor-pair-summary small {display:block;color:#94a3b8;margin-top:5px;line-height:1.4}
+@media print {
+    .printable-sheet {
+        display: grid;
+        grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+        max-height: 279.4mm;
+        height: 279.4mm;
+        min-height: 279.4mm;
+        overflow: visible;
+        justify-content: initial;
+    }
+    .sheet-half { break-inside: avoid; page-break-inside: avoid; }
+}
+
+#editor-status.warn{color:#fbbf24!important}
+
+/* Edición S-140: nombres individuales en la misma zona de inicio de los pares. */
+.assignee-student > .role-leader {flex:0 0 5px;min-width:5px;margin:0 3px 2px;}
+.assignee-student > .assigned-person {text-align:left;white-space:normal;flex:0 1 auto;}
+.assignee-single > .assigned-person {flex:0 1 auto;text-align:left;}
+.assignee-opening > .assigned-person {flex:0 1 auto;text-align:left;}
+/* Lectura bíblica simplificada y participante en las filas de canción e introducción. */
+.meta-grid {margin-bottom:2px;}
+
+/* Exportación PDF en memoria: misma hoja y estilos, fuera de la pantalla. */
+#vmc-pdf-staging { position:fixed;top:0;left:-10000px;width:215.9mm;pointer-events:none;z-index:-1; }
+#vmc-pdf-staging .vmc-pdf-page { box-shadow:none!important; margin:0!important; }
+#vmc-pdf-staging [contenteditable="true"] { outline:none!important;background:transparent!important; }

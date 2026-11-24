@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101e35">
+  <title>VMC Reuniones | Panel principal</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/importador.css">
+  <link rel="stylesheet" href="css/asignaciones.css?v=presidente1">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script defer src="js/config.js"></script>
+  <script defer src="js/app.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script defer src="js/epub-parser.js"></script>
+  <script defer src="js/importador.js"></script>
+  <script defer src="js/asignaciones.js?v=presidente1"></script>
+  <script defer src="js/editor-enlace.js"></script>
+</head>
+<body>
+  <div class="app-shell">
+    <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
+    <aside class="sidebar" id="sidebar" aria-label="Menú principal">
+      <div class="sidebar-top">
+        <a class="brand" href="#inicio" aria-label="VMC Reuniones, ir a inicio">
+          <span class="brand-mark" aria-hidden="true">V</span>
+          <span class="brand-text"><strong>VMC Reuniones</strong><small>Panel de administración</small></span>
+        </a>
+        <button class="icon-button sidebar-close" id="closeSidebar" aria-label="Cerrar menú" type="button">✕</button>
+      </div>
+      <div class="menu-caption">ESPACIO DE TRABAJO</div>
+      <nav class="navigation" aria-label="Secciones">
+        <a class="nav-link active" href="#inicio" data-page="inicio" aria-current="page"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></span><span>Inicio</span></a>
+        <a class="nav-link" href="#publicadores" data-page="publicadores"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span>Publicadores</span></a>
+        <a class="nav-link" href="#reuniones" data-page="reuniones"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M8 14h3M8 17h6"/></svg></span><span>Reuniones</span></a>
+      </nav>
+      <div class="sidebar-bottom"><span class="status-dot"></span><span>Espacio de trabajo VMC</span><small>Versión inicial</small></div>
+    </aside>
+    <div class="main-area" id="mainArea">
+      <header class="topbar">
+        <div class="topbar-left"><button class="icon-button menu-toggle" id="menuToggle" aria-label="Abrir o cerrar menú" aria-expanded="true" aria-controls="sidebar" type="button"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><span class="topbar-divider"></span><span class="topbar-location" id="topbarLocation">Inicio</span></div>
+        <div class="topbar-right"><span class="topbar-app">VMC <span class="topbar-app-dot">·</span> Administración</span><span class="avatar" aria-hidden="true">V</span><span id="userEmail" class="user-email"></span><button id="logoutBtn" class="btn btn-outline" type="button" hidden>Cerrar sesión</button></div>
+      </header>
+      <main class="content" id="content" tabindex="-1">
+        <section class="page active" id="page-inicio" aria-labelledby="inicioTitle">
+          <div class="eyebrow">PANEL GENERAL</div><div class="page-heading"><div><h1 id="inicioTitle">Bienvenido a VMC Reuniones</h1><p>Organiza los publicadores y prepara las reuniones desde un solo lugar.</p></div><span class="heading-decoration" aria-hidden="true">✦</span></div>
+          <div class="welcome-banner"><div class="welcome-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/></svg></div><div><strong>Tu espacio de organización</strong><p>Todo listo para comenzar a gestionar la información de las reuniones. Elige una sección para continuar.</p></div></div>
+          <h2 class="section-title">Accesos rápidos</h2>
+          <div class="quick-grid"><a class="quick-card" href="#publicadores"><span class="quick-icon blue"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="quick-copy"><strong>Publicadores</strong><small>Consulta y administra el directorio.</small></span><span class="quick-arrow" aria-hidden="true">→</span></a><a class="quick-card" href="#reuniones"><span class="quick-icon violet"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M8 14h3M8 17h6"/></svg></span><span class="quick-copy"><strong>Reuniones</strong><small>Prepara la programación semanal.</small></span><span class="quick-arrow" aria-hidden="true">→</span></a></div>
+          <div class="info-panel"><div class="info-icon">i</div><div><strong>Construyendo el sistema</strong><p>Esta es la base visual del panel. Publicadores se administra desde el directorio. El módulo de Reuniones se integrará más adelante.</p></div></div>
+        </section>
+        <section class="page" id="page-publicadores" aria-labelledby="publicadoresTitle" hidden>
+          <div class="eyebrow">DIRECTORIO</div>
+          <div class="page-heading"><div><h1 id="publicadoresTitle">Publicadores</h1><p>Registro y administración de publicadores de la congregación.</p></div><button id="newPublisher" class="btn btn-primary" type="button">+ Nuevo publicador</button></div>
+          <div class="panel"><div class="filters"><input id="searchPublisher" type="search" placeholder="Buscar por nombre o apellido…" aria-label="Buscar publicadores"><select id="filterStatus" aria-label="Filtrar por estado"><option value="todos">Todos los estados</option><option value="activos">Activos</option><option value="inactivos">Inactivos</option></select><select id="filterGender" aria-label="Filtrar por género"><option value="todos">Todos los géneros</option><option value="Hombre">Hombres</option><option value="Mujer">Mujeres</option></select></div>
+          <div id="publisherMessage" class="notice" role="status"></div>
+          <div class="table-scroll"><table class="data-table"><thead><tr><th>Nombre completo</th><th>Género</th><th>Rol</th><th>Privilegio</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="publisherRows"><tr><td colspan="6">Inicia sesión para ver los registros.</td></tr></tbody></table></div></div>
+        </section>
+        <section class="page" id="page-reuniones" aria-labelledby="reunionesTitle" hidden>
+          <div class="eyebrow">PROGRAMACIÓN</div>
+          <div class="page-heading"><div><h1 id="reunionesTitle">Reuniones</h1><p>Importa la Guía de Actividades y revisa cada semana antes de asignar publicadores.</p></div></div>
+          <div id="vmc-asignaciones" class="assign-root">
+            <div class="assign-header">
+              <div><h2>Asignar publicadores</h2><p>Selecciona una semana guardada y asigna cada puesto según la parte.</p></div>
+              <button type="button" id="assignRefresh" class="import-btn import-btn--secondary">Actualizar semanas</button>
+            </div>
+            <div class="assign-toolbar">
+              <label for="assignWeek">Semana guardada en Supabase</label>
+              <select id="assignWeek" aria-label="Semana a asignar"><option value="">Selecciona una semana…</option></select>
+              <button id="assignSave" type="button" class="import-btn" disabled>Guardar asignaciones</button>
+               <button id="openS140Editor" type="button" class="import-btn import-btn--secondary" disabled title="Abrir el editor con la semana seleccionada">Abrir editor S-140</button>
+            </div>
+            <div id="assignStatus" class="import-message" role="status" aria-live="polite"></div>
+            <div id="assignSummary" class="assign-summary" hidden></div>
+            <div id="assignParts" class="assign-parts"></div>
+          </div>
+
+          <dialog id="assignPicker" class="assign-picker" aria-labelledby="assignPickerTitle">
+            <div class="assign-picker-head">
+              <div><h2 id="assignPickerTitle">Elegir publicador</h2><p id="assignPickerPart"></p></div>
+              <button type="button" id="assignPickerClose" class="assign-picker-close" aria-label="Cerrar selector">✕</button>
+            </div>
+            <div class="assign-picker-filters">
+              <label class="assign-picker-search">Nombre o apellido
+                <input id="assignPickerSearch" type="search" placeholder="Buscar por nombre o apellido…" autocomplete="off">
+              </label>
+              <label>Género
+                <select id="assignPickerGender"><option value="">Todos</option><option value="Hombre">Hombres</option><option value="Mujer">Mujeres</option></select>
+              </label>
+              <label>Rol
+                <select id="assignPickerRole"><option value="">Todos los roles</option><option value="Publicador no bautizado">Publicador no bautizado</option><option value="Publicador">Publicador</option><option value="Precursor auxiliar">Precursor auxiliar</option><option value="Precursor regular">Precursor regular</option><option value="Precursor especial">Precursor especial</option></select>
+              </label>
+              <label>Privilegio de servicio
+                <select id="assignPickerPrivilege"><option value="">Todos los privilegios</option><option value="ninguno">Sin privilegio</option><option value="Siervo ministerial">Siervo ministerial</option><option value="Anciano">Anciano</option></select>
+              </label>
+            </div>
+            <div class="assign-picker-actions">
+              <span id="assignPickerCount" aria-live="polite"></span>
+              <button type="button" id="assignPickerReset" class="assign-picker-text-btn">Restablecer filtros</button>
+            </div>
+            <div id="assignPickerList" class="assign-picker-list" role="list" aria-label="Publicadores disponibles"></div>
+            <div class="assign-picker-footer">
+              <button id="assignPickerClear" type="button" class="assign-picker-text-btn">Dejar sin asignar</button>
+              <button id="assignPickerCancel" type="button" class="import-btn import-btn--secondary">Cancelar</button>
+            </div>
+          </dialog>
+          <details class="assign-import-collapsible"><summary>Importar otro programa EPUB o JSON</summary>
+          <div id="vmc-importador">
+            <div class="import-card import-intro">
+              <div class="import-symbol" aria-hidden="true">▤</div>
+              <div><h2>Importar programa desde EPUB</h2><p>Lee las semanas, canciones, títulos y duraciones en tu navegador, sin PHP ni servidores adicionales.</p></div>
+            </div>
+            <div class="import-upload">
+              <strong>Selecciona la Guía de Actividades (.epub)</strong>
+              <small>También acepta archivos JSON antiguos como 2026_07.json.</small>
+              <input id="importFile" type="file" accept=".epub,.json,application/epub+zip,application/json" hidden aria-label="Seleccionar EPUB o JSON">
+              <button id="importChoose" type="button" class="import-btn">Elegir archivo EPUB o JSON</button>
+            </div>
+            <div id="importStatus" class="import-message" role="status" aria-live="polite"></div>
+            <div id="importSummary" class="import-card" hidden>
+              <h2 id="importGroupTitle">Programa importado</h2>
+              <div class="import-summary-grid">
+                <div class="import-stat"><strong id="importCountWeeks">0</strong><span>Semanas</span></div>
+                <div class="import-stat"><strong id="importCountParts">0</strong><span>Puntos numerados</span></div>
+                <div class="import-stat"><strong id="importCountSongs">0</strong><span>Canciones</span></div>
+              </div>
+              <div class="import-tools">
+                <label for="importWeek">Selecciona una semana para revisar</label>
+                <button id="exportJson" type="button" class="import-btn import-btn--secondary" disabled>Descargar JSON</button>
+                <button id="saveProgram" type="button" class="import-btn" disabled>Guardar en Supabase</button>
+              </div>
+              <select id="importWeek" aria-label="Semana del programa" hidden></select>
+              <div id="importDetail"></div>
+              <p class="import-footnote">El EPUB se procesa en tu navegador. Se guardan semanas y puestos vacíos en Supabase. Las semanas existentes se conservan sin cambios y el editor S-140 no se modifica.</p>
+            </div>
+            <div id="importWarnings" class="import-warnings" role="status" hidden></div>
+          </div>
+          </details>
+        </section>
+      </main>
+      <div id="authScreen" class="auth-screen"><form id="loginForm" class="auth-card"><div class="auth-logo">V</div><h2>Acceso de administrador</h2><p>Inicia sesión para gestionar los publicadores de VMC Reuniones.</p><label for="loginEmail">Correo electrónico</label><input id="loginEmail" type="email" autocomplete="username" required placeholder="correo@ejemplo.com"><label for="loginPassword">Contraseña</label><input id="loginPassword" type="password" autocomplete="current-password" required minlength="6" placeholder="Tu contraseña"><button class="btn btn-primary" id="loginBtn" type="submit">Iniciar sesión</button><div id="loginMessage" class="notice" role="alert"></div></form></div>
+      <dialog id="publisherDialog" class="publisher-dialog"><form id="publisherForm"><div class="dialog-heading"><h2 id="publisherDialogTitle">Nuevo publicador</h2><button class="icon-button" type="button" id="closePublisher" aria-label="Cerrar">✕</button></div><input type="hidden" id="publisherId"><div class="form-grid"><label>Nombre <input id="publisherName" required maxlength="120" autocomplete="off"></label><label>Apellido <input id="publisherSurname" required maxlength="120" autocomplete="off"></label><label>Género <select id="publisherGender" required><option value="Hombre">Hombre</option><option value="Mujer">Mujer</option></select></label><label>Rol <select id="publisherRole" required><option>Publicador no bautizado</option><option>Publicador</option><option>Precursor auxiliar</option><option>Precursor regular</option><option>Precursor especial</option></select></label><label>Privilegio de servicio <select id="publisherPrivilege"><option value="">Ninguno</option><option>Siervo ministerial</option><option>Anciano</option></select></label><label class="check-field"><input id="publisherActive" type="checkbox" checked> Publicador activo</label></div><div id="formMessage" class="notice" role="alert"></div><div class="dialog-actions"><button type="button" class="btn btn-outline" id="cancelPublisher">Cancelar</button><button type="submit" id="savePublisher" class="btn btn-primary">Guardar publicador</button></div></form></dialog>
+      <footer class="footer">VMC Reuniones <span>·</span> Panel de administración</footer>
+    </div>
+  </div>
+</body>
+</html>

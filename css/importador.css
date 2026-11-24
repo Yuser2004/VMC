@@ -1,0 +1,40 @@
+/* VMC Reuniones · Estilos aislados del importador */
+#vmc-importador { display:grid; gap:18px; }
+#vmc-importador .import-card { background:#fff; border:1px solid #e2e9f2; border-radius:16px; padding:22px; box-shadow:0 7px 24px rgba(20,42,70,.035); }
+#vmc-importador .import-intro { display:flex; align-items:center; gap:14px; }
+#vmc-importador .import-symbol { flex:0 0 50px; width:50px; height:50px; display:grid; place-items:center; background:#eaf1ff; border-radius:14px; color:#2959a6; font-size:23px; }
+#vmc-importador .import-card h2 { margin:0 0 5px; font-size:18px; color:#182d47; }
+#vmc-importador .import-card p { color:#667993; margin:0; line-height:1.6; }
+#vmc-importador .import-upload { border:2px dashed #acc3e6; background:#f7faff; border-radius:16px; padding:24px; display:grid; justify-items:center; text-align:center; gap:10px; }
+#vmc-importador .import-upload strong { color:#243f63; }
+#vmc-importador .import-upload small { color:#6b7c94; }
+#vmc-importador .import-btn { background:#2459ae; color:white; border:0; border-radius:10px; padding:11px 16px; font-weight:700; cursor:pointer; font:inherit; font-weight:650; }
+#vmc-importador .import-btn:hover:not(:disabled) { background:#194887; }
+#vmc-importador .import-btn:disabled { cursor:not-allowed; opacity:.46; }
+#vmc-importador .import-btn--secondary { color:#244b86; background:#e8f0fd; }
+#vmc-importador .import-btn--secondary:hover:not(:disabled) { background:#d6e6fc; }
+#vmc-importador .import-message { padding:13px 15px; background:#edf3ff; color:#214779; border-radius:10px; font-size:14px; line-height:1.5; overflow-wrap:anywhere; }
+#vmc-importador .import-message--error { background:#fff0f0; color:#902b30; }
+#vmc-importador .import-message--success { background:#e9f7f0; color:#206b4e; }
+#vmc-importador .import-summary-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin:14px 0; }
+#vmc-importador .import-stat { border:1px solid #e1eaf4; border-radius:11px; padding:14px; background:#fafcff; }
+#vmc-importador .import-stat strong { display:block; font-size:24px; color:#1d3d64; }
+#vmc-importador .import-stat span { display:block; font-size:12px; color:#6a7c94; margin-top:3px; }
+#vmc-importador .import-tools { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; margin:12px 0; }
+#vmc-importador .import-tools label { font-size:13px; font-weight:650; color:#2c435f; }
+#vmc-importador select { border:1px solid #cbd7e8; border-radius:10px; padding:10px; font:inherit; background:white; color:#203c5e; min-width:min(100%,300px); max-width:100%; }
+#vmc-importador .import-week-header { border-bottom:1px solid #e4ebf4; padding-bottom:12px; margin:10px 0 14px; }
+#vmc-importador .import-week-header h3 { margin:0 0 4px; font-size:17px; color:#15355d; }
+#vmc-importador .import-section-name { color:#2c588e; margin:18px 0 7px; font-size:14px; font-weight:750; }
+#vmc-importador .import-part-list { display:grid; gap:7px; }
+#vmc-importador .import-part { display:flex; align-items:start; justify-content:space-between; gap:14px; border:1px solid #e8edf5; border-radius:10px; padding:10px 12px; }
+#vmc-importador .import-part-text { display:grid; gap:3px; min-width:0; }
+#vmc-importador .import-part-label { color:#8090a6; font-size:11px; text-transform:uppercase; letter-spacing:.04em; }
+#vmc-importador .import-part strong { color:#263b55; font-size:13px; font-weight:650; overflow-wrap:anywhere; }
+#vmc-importador .import-part small { font-size:12px; color:#6a7b93; line-height:1.4; overflow-wrap:anywhere; }
+#vmc-importador .import-minutes { flex-shrink:0; color:#2862aa; background:#edf4ff; border-radius:6px; padding:5px 8px; font-size:12px; font-weight:650; }
+#vmc-importador .import-warnings { border:1px solid #f2d6a3; background:#fffbf0; color:#765321; padding:14px 16px; border-radius:12px; font-size:13px; }
+#vmc-importador .import-warnings ul { margin:7px 0 0; padding-left:20px; }
+#vmc-importador .import-footnote { font-size:12px; color:#8190a4; }
+#vmc-importador [hidden] { display:none !important; }
+@media (max-width:600px) { #vmc-importador .import-card { padding:15px; } #vmc-importador .import-summary-grid { grid-template-columns:repeat(3,1fr); } #vmc-importador .import-stat { padding:10px; } #vmc-importador .import-stat strong { font-size:20px; } #vmc-importador .import-intro { align-items:start; } #vmc-importador .import-tools { align-items:stretch; flex-direction:column; } #vmc-importador select { width:100%; } }

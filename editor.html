@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editor S-140 · VMC</title>
+<link rel="stylesheet" href="css/editor.css?v=20261123-exportacion-1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="editor-layout">
+<aside class="control-panel no-print">
+  <div class="panel-header"><h2><i class="fa-solid fa-sliders"></i> Editor S-140</h2><a href="index.html" class="btn-secondary">Volver</a></div>
+  <div class="accordion-section"><h3>Hoja que se va a imprimir</h3>
+    <div class="control-group"><label for="week-select">Selecciona cualquier semana</label><select id="week-select"></select></div>
+    <div class="editor-pair-summary" id="pair-summary" aria-live="polite">
+      <div><strong>Arriba ·</strong> <span id="week-top-label">Cargando…</span></div>
+      <div><strong>Abajo ·</strong> <span id="week-bottom-label">Cargando…</span></div>
+      <small>Las semanas se agrupan en pares: 1–2, 3–4, 5–6…</small>
+    </div>
+    <div class="control-group"><label for="meeting-time">Hora de inicio (ambas reuniones)</label><input id="meeting-time" type="time" value="18:30"></div>
+    <button class="btn btn-primary btn-block" id="btn-load-weeks">Actualizar hoja</button>
+    <p id="editor-status" role="status" style="font-size:12px;line-height:1.4;color:#cbd5e1">Cargando semanas de Supabase…</p>
+  </div>
+  <div class="accordion-section"><h3>1. Estilos de esta hoja</h3>
+    <div class="control-group"><label>Fuente: <span id="val-font-size">12.5px</span></label><input type="range" id="range-font-size" min="8" max="13" step="0.5" value="12.5"></div>
+    <div class="control-group"><label>Margen: <span id="val-margin">10mm</span></label><input type="range" id="range-margin" min="5" max="20" step="1" value="10"></div>
+    <div class="control-group"><label>Separación reuniones: <span id="val-meeting-gap">25px</span></label><input type="range" id="range-meeting-gap" min="4" max="25" step="1" value="25"></div>
+  </div>
+  <div class="accordion-section"><h3>2. Encabezado</h3>
+    <div class="control-group"><label>Nombre de congregación: <span id="val-h-cong">20.5px</span></label><input type="range" id="range-h-cong" min="11" max="22" step="0.5" value="20.5"></div>
+    <div class="control-group"><label>Espaciado encabezado: <span id="val-h-pad">4px</span></label><input type="range" id="range-h-pad" min="2" max="18" step="1" value="4"></div>
+  </div>
+  <div class="accordion-section"><h3>3. Secciones y filas</h3>
+    <div class="control-group"><label>Títulos de sección: <span id="val-sec-title">11px</span></label><input type="range" id="range-sec-title" min="8" max="14" step="0.5" value="11"></div>
+    <div class="control-group"><label>Espacio de filas: <span id="val-row-pad">1.5px</span></label><input type="range" id="range-row-pad" min="0.5" max="8" step="0.5" value="1.5"></div>
+  </div>
+  <div class="panel-footer">
+    <button class="btn btn-secondary btn-block" id="btn-reset-config">Restablecer esta hoja</button>
+    <button class="btn btn-primary btn-block" id="btn-save-config">Guardar ajustes de esta hoja</button>
+    <button class="btn btn-success btn-block" id="btn-print-doc">Imprimir hoja actual (2 por carta)</button>
+    <button class="btn btn-primary btn-block" type="button" id="btn-export-pdf">Exportar PDF completo (todas las semanas)</button>
+    <small style="display:block;color:#94a3b8;line-height:1.4;margin-top:8px">PDF carta vertical: dos reuniones por página, en orden. Conserva los ajustes de cada hoja en este navegador.</small>
+  </div>
+</aside>
+<main class="preview-workspace"><div class="printable-sheet" id="sheet-template">
+  <div class="sheet-half sheet-top-half" id="sheet-top-half">
+    <div class="sheet-header"><h1 class="editable-congregation" contenteditable="true" spellcheck="false">CONGREGACIÓN: LOS ANDES</h1><span class="sheet-subtitle" contenteditable="true" spellcheck="false">Programa para la reunión de entre semana</span></div>
+    <div id="meeting-a" class="meeting-block"></div>
+  </div>
+  <div class="meeting-divider" aria-hidden="true"><span></span></div>
+  <div class="sheet-half sheet-bottom-half" id="sheet-bottom-half">
+    <div id="meeting-b" class="meeting-block"></div>
+  </div>
+  <div class="sheet-footer-code">S-140-S 11/23</div>
+</div></main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="js/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.2/dist/jspdf.umd.min.js"></script>
+<script src="js/editor.js?v=20261123-exportacion-1"></script>
+</body></html>
